@@ -1,5 +1,6 @@
+import pickle
+import pandas as pd
 from flask import Flask, render_template
-from model import
 # Flask constructor takes the name of
 # current module (__name__) as argument.
 app = Flask(__name__)
@@ -11,6 +12,10 @@ app = Flask(__name__)
 @app.route('/')
 # ‘/’ URL is bound with hello_world() function.
 def hello_world():
+    newdata = pd.Series([200, 300])
+    data_pred = pd.DataFrame(newdata, columns=['YearsExperience'])
+    model = pickle.load(open('model-SLR','rb'))
+    print(model.predict(data_pred))
     return render_template('hello.html')
 
 
